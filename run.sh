@@ -13,7 +13,7 @@ fi
 
 # Attempt to copy the firmware file
 echo -n "Uploading .uf2... "
-cp bin/*.uf2 "$PICO_DIR"
+cp build/*.uf2 "$PICO_DIR"
 if [ $? -ne 0 ]; then
   echo Unable to copy firmware!
   exit 1

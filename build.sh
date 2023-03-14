@@ -14,7 +14,7 @@ fi
 
 # Create build output directory
 mkcd() { mkdir -p "$@" && cd "$@"; }
-mkcd bin # You can call this whatever you like
+mkcd build
 
 # Run CMake compiler
 cmake ..
