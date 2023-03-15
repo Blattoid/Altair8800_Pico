@@ -58,13 +58,15 @@ int main() {
   gpio_set_irq_enabled_with_callback(
     CLK_BTN, GPIO_IRQ_EDGE_RISE, true, &irq_clk_rise);
 
-
-  Opcode opcode;
+  // As a test, loop over all the opcodes and pretty-print them, forever.
+  char blink = 0;
   while (true) {
    for (int i=0; i<256; i++) {
-     opcode = instruction_set[i];
-     printf("%s %d %d %#08x\n", opcode.name, opcode.length, opcode.cycles, opcode.execute);
+     Opcode op = instruction_set[i];
+     printf("[%d] %s %d %d %#08x\n", i, op.name, op.length, op.cycles, op.execute);
    }
+   gpio_put(LED_PIN, blink);
+   blink ^= 1;
   }
 
   // This should never be reached
