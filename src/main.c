@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
+#include "hardware/structs/rosc.h"
 
-#include "instructions.h"
-extern Opcode instruction_set[];
+#include "altair_cpu.h"
 
 /*
 // Front Panel button pin mappings
@@ -17,9 +17,6 @@ extern Opcode instruction_set[];
 #define DATA_BUS 20 // 8 bits wide
 #define STATUSLED_BUS 16 // Front panel status LEDs
 #define STATUSLED_BUS_WIDTH 4
-
-// How much RAM should be available to the system
-#define MEMORY_SIZE 256
 */
 
 #define DATA_BTN 0
@@ -58,6 +55,15 @@ int main() {
   gpio_set_irq_enabled_with_callback(
     CLK_BTN, GPIO_IRQ_EDGE_RISE, true, &irq_clk_rise);
 
+  // Fill the memory with random values
+  for (int i=0; i<MEMORY_SIZE; i++) {
+    // Read the ring oscillator to set each bit to a random value
+    char value = 0;
+    for (int b=0; b<8; b++) {
+      value |= rosc_hw->randombit << b;
+    }
+    memory[i] = value;
+  }  
   // As a test, loop over all the opcodes and pretty-print them, forever.
   char blink = 0;
   while (true) {

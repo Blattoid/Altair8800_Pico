@@ -1,3 +1,4 @@
+#include "altair_cpu.h"
 #include "instructions_impl.h"
 
 // Placeholder, should do the same as a NOP

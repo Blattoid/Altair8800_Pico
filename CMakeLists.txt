@@ -11,6 +11,7 @@ pico_sdk_init()
 
 # Add the cpu emulation library
 add_library(altair_cpu STATIC
+  src/altair_cpu.c
   src/instructions_impl.c
   src/instructions.c
 )
