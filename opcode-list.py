@@ -38,12 +38,12 @@ for op in opcodes:
   # This means the instruction can sometimes take an extra 6 cycles to run
   if "/" in op_cycles:
     _, op_cycles = op_cycles.split("/")
-    op_slow = " .slow=true,"
-  else: op_slow = ""
+    #op_slow = " .slow=true,"
+  #else: op_slow = ""
   # Calculate padding to put after the name and cycle fields to make it look pretty
   n_pad = " "*max(0,max_name_len-len(op_name))
   c_pad = "" if int(op_cycles)>9 else " "
   # Print that sucker
-  print("  {{ \"{}\",{} .length={}, .cycles={},{}{} &opcode_UNDEF }},".format(
-    op_name,n_pad, op_length, op_cycles,c_pad, op_slow))
+  print("  {{ \"{}\",{} .length={}, .cycles={},{} &opcode_UNDEF }},".format(
+    op_name,n_pad, op_length, op_cycles,c_pad)) #, op_slow))
 print("};")
