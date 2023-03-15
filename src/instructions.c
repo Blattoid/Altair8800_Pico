@@ -1,11 +1,5 @@
 #include "instructions.h"
-
-int opcode_NOP() {
-  // No Operation - Waste some cycles
-}
-
-// Placeholder, should do the same as a NOP
-int opcode_UNDEF() { opcode_NOP(); }
+#include "instructions_impl.h"
 
 Opcode instruction_set[256] = {
   { "NOP",        .length=1, .cycles=4,  &opcode_UNDEF },

@@ -10,7 +10,10 @@ project(my_project)
 pico_sdk_init()
 
 # Add the cpu emulation library
-add_library(altair_cpu STATIC src/instructions.c)
+add_library(altair_cpu STATIC
+  src/instructions_impl.c
+  src/instructions.c
+)
 # Include the headers for the library
 target_include_directories(altair_cpu PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
