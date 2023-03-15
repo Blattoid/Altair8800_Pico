@@ -24,7 +24,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
-make altair8800_emu
+make altair8800_pico
 if [ $? -ne 0 ]; then
   echo "Build fail: make error!"
   exit 1

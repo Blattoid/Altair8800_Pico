@@ -15,17 +15,17 @@ add_library(altair_cpu STATIC src/instructions.c)
 target_include_directories(altair_cpu PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # rest of your project
-add_executable(altair8800_emu
+add_executable(altair8800_pico
     src/main.c
 )
 
 # Enable the USB serial port
-pico_enable_stdio_usb(altair8800_emu 1)
+pico_enable_stdio_usb(altair8800_pico 1)
 
-target_link_libraries(altair8800_emu
+target_link_libraries(altair8800_pico
     pico_stdlib # Add pico_stdlib library which aggregates commonly used features
     altair_cpu
 )
 
 # create map/bin/hex/uf2 file in addition to ELF.
-pico_add_extra_outputs(altair8800_emu altair_cpu)
+pico_add_extra_outputs(altair8800_pico altair_cpu)
