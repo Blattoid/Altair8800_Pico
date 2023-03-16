@@ -64,17 +64,22 @@ int main() {
     }
     memory[i] = value;
   }  
-  // As a test, loop over all the opcodes and pretty-print them, forever.
-  char blink = 0;
-  while (true) {
-   for (int i=0; i<256; i++) {
-     Opcode op = instruction_set[i];
-     printf("[%d] %s %d %d %#08x\n", i, op.name, op.length, op.cycles, op.execute);
-   }
-   gpio_put(LED_PIN, blink);
-   blink ^= 1;
-  }
 
+  // FDE loop
+  while (true) {
+    // As a test, loop over all the opcodes and pretty-print them.
+    for (int i=0; i<256; i++) {
+      // Fetch
+      // ...
+      // Decode
+      Opcode op = instruction_set[i];
+      //printf("[%d] %s %d %d %#08x\n", i, op.name, op.length, op.cycles, op.execute);
+      // Execute
+      op.execute();
+      
+    }
+  }
+  
   // This should never be reached
   return 0;
 }
