@@ -98,7 +98,7 @@ fi
 
 # Attempt to copy the firmware file
 echo Uploading .uf2...
-cp -v build/*.uf2 "$PICO_MNTDIR"
+cp build/*.uf2 "$PICO_MNTDIR"
 if [ $? -ne 0 ]; then
   echo Unable to copy firmware!
   exit 1
