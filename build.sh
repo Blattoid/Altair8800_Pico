@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # Check if the path to the SDK directory hasn't already been set
+# This will override the default listed in CMakeLists.txt
 if [ -z "$PICO_SDK_PATH" ]; then
   # Make sure to change this to point at your SDK directory!
   export PICO_SDK_PATH="`pwd`/../../pico-sdk"

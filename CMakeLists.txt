@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.13)
 
+# Set the PICO_SDK_PATH if it is undefined.
+# The build.sh script will override this, if you're using that.
+if(NOT DEFINED ENV{PICO_SDK_PATH})
+  set(ENV{PICO_SDK_PATH} "../../../pico-sdk")
+endif()
+
 # initialize the SDK based on PICO_SDK_PATH
 # note: this must happen before project()
 include(pico_sdk_import.cmake)
