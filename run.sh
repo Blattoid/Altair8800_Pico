@@ -72,7 +72,9 @@ if [ ! -d "$PICO_MNTDIR" ]; then
   fi
   
   # Then mount the device. The uid and gid must be specfied, otherwise there are errors during the copy operation.
-  sudo mount -o uid=1000,gid=1000 "$PICO_BLKDEV" "$PICO_MNTDIR" 
+  uid=$(id -u `whoami`)
+  gid=$(id -g `whoami`)
+  sudo mount -o uid=$uid,gid=$gid "$PICO_BLKDEV" "$PICO_MNTDIR"
   if [ $? -ne 0 ]; then # If we quit at this moment then we'd be leaving behind an empty mountpoint
     echo Failed to mount device!
     cleanup
