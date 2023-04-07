@@ -67,17 +67,7 @@ int main() {
 
   // FDE loop
   while (true) {
-    // As a test, loop over all the opcodes and pretty-print them.
-    for (int i=0; i<256; i++) {
-      // Fetch
-      // ...
-      // Decode
-      Opcode op = instruction_set[i];
-      //printf("[%d] %s %d %d %#08x\n", i, op.name, op.length, op.cycles, op.execute);
-      // Execute
-      op.execute();
-      
-    }
+    cpu_step();
   }
   
   // This should never be reached
