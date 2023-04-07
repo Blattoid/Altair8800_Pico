@@ -30,20 +30,43 @@ for op in opcodes:
     max_name_len = len(op_name)
 #print(max_name_len)
 
+op_funcs = [] 
+
 print("Opcode instruction_set[256] = {")
 for op in opcodes:
   # Unpack the array
   op_name, op_length, op_cycles, *_ = op
+  # Determine the function name for this opcode
+  op_func = "opcode_"+op_name
+  for replacement in ("*",""),(" ","_"),(",","_"):
+    op_func = op_func.replace(*replacement)
+  # Build a list of all the unique function names
+  if op_func not in op_funcs:
+    op_funcs.append(op_func)
+  
   # Handle cases where two cycle numbers are listed
   # This means the instruction can sometimes take an extra 6 cycles to run
   if "/" in op_cycles:
     _, op_cycles = op_cycles.split("/")
-    #op_slow = " .slow=true,"
-  #else: op_slow = ""
+    
   # Calculate padding to put after the name and cycle fields to make it look pretty
   n_pad = " "*max(0,max_name_len-len(op_name))
   c_pad = "" if int(op_cycles)>9 else " "
   # Print that sucker
-  print("  {{ \"{}\",{} .length={}, .cycles={},{} &opcode_UNDEF }},".format(
-    op_name,n_pad, op_length, op_cycles,c_pad)) #, op_slow))
+  print("  {{ \"{}\",{} .length={}, .cycles={},{} &{} }},".format(
+    op_name,n_pad, op_length, op_cycles,c_pad, op_func))
 print("};")
+
+input("\n"+"#"*25+ " instructions_impl.h " +"#"*25+"\n")
+
+# Turn the function list into header entries
+op_funcs.sort()
+for func in op_funcs:
+  print(f"int {func}();")
+
+input("\n"+"#"*25+ " instructions_impl.c " +"#"*25+"\n")
+
+# Turn the function list into header entries
+op_funcs.sort()
+for func in op_funcs:
+  print(f"int {func}() {{\n}}\n")
