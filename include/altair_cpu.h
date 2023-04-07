@@ -11,8 +11,8 @@ extern Opcode instruction_set[];
 extern char memory[];
 
 // CPU registers
-//extern char instruction_reg;
-//extern char program_counter_reg;
+extern char instruction_reg;
+extern char program_counter_reg;
 
 void cpu_step();
 
