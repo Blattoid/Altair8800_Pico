@@ -69,4 +69,7 @@ input("\n"+"#"*25+ " instructions_impl.c " +"#"*25+"\n")
 # Turn the function list into header entries
 op_funcs.sort()
 for func in op_funcs:
-  print(f"int {func}() {{\n}}\n")
+  print(f"""int {func}() {{
+  printf(\"'{func}' not implemented.\\n");
+}}
+""")
