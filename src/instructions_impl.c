@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "altair_cpu.h"
 #include "instructions_impl.h"
 
