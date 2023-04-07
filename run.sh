@@ -8,7 +8,7 @@
 
 # Make sure to change the below constants for your system!
 I_HAVE_CONFIRMED_THESE_ARE_CORRECT=no    # Change to 'yes' once you're happy.
-PICO_MNTDIR=~/Mount/RPI-RP2 # Where the device is mounted, or where it should be mounted
+PICO_MNTDIR=/run/media/`whoami`/RPI-RP2 # Where the device is mounted, or where it should be mounted
 PICO_BLKDEV=/dev/sdb1 # Block device used for automatic mounting, if it isn't already
 SERIAL_PORT=/dev/ttyACM0 # Serial port for the screen command
 
