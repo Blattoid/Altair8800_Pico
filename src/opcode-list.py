@@ -33,7 +33,7 @@ for op in opcodes:
 op_funcs = [] 
 
 print("Opcode instruction_set[256] = {")
-for op in opcodes:
+for i, op in enumerate(opcodes):
   # Unpack the array
   op_name, op_length, op_cycles, *_ = op
   # Determine the function name for this opcode
@@ -53,8 +53,11 @@ for op in opcodes:
   n_pad = " "*max(0,max_name_len-len(op_name))
   c_pad = "" if int(op_cycles)>9 else " "
   # Print that sucker
-  print("  {{ \"{}\",{} .length={}, .cycles={},{} &{} }},".format(
-    op_name,n_pad, op_length, op_cycles,c_pad, op_func))
+  print("/*{}*/ {{ \"{}\",{} .length={}, .cycles={},{} &{} }},".format(
+    hex(i)[2:].upper().zfill(2),
+    op_name,n_pad,
+    op_length,
+    op_cycles,c_pad, op_func))
 print("};")
 
 input("\n"+"#"*25+ " instructions_impl.h " +"#"*25+"\n")
