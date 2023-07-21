@@ -8,5 +8,7 @@ typedef struct {
   int (*execute)(); // Pointer to the function for this opcode. Returns the number of extra cycles the instruction took on top of the base cycle count, which is usually 0.
 } Opcode;
 
+extern Opcode instruction_set[];
+
 #endif // INSTRUCTIONS_H
 

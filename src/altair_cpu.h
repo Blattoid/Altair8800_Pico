@@ -6,8 +6,7 @@
 // How much RAM should be allocated? Max for 16 bit address space is 65536
 #define MEMORY_SIZE 256
 
-// Global variables
-extern Opcode instruction_set[];
+// Virtual RAM
 extern char memory[];
 
 // CPU registers
