@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-# Generates the 
+# Used to create the empty instruction source and header files
 import requests
 from bs4 import BeautifulSoup
 

@@ -55,7 +55,7 @@ int main() {
   gpio_set_irq_enabled_with_callback(
     CLK_BTN, GPIO_IRQ_EDGE_RISE, true, &irq_clk_rise);
 
-  // Fill the memory with random values
+  // Fill the memory with random values, just like on the real hardware
   for (int i=0; i<MEMORY_SIZE; i++) {
     // Read the ring oscillator to set each bit to a random value
     char value = 0;
@@ -68,12 +68,15 @@ int main() {
   // FDE loop
   while (true) {
     cpu_step();
+    printf("PC=%d\n", reg_PC);
   }
   
-  // This should never be reached
+  // This should never be reached 
   return 0;
 }
 
 void irq_clk_rise(uint gpio, uint32_t events) {
+  // Read in the data bus and store it into memory at the value set by the address bus
+  // This will let the user "toggle in" a program, one byte at a time :)
   printf("IRQ! d=%d\n", gpio_get(DATA_BTN));
 }
