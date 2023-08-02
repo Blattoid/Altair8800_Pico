@@ -18,6 +18,7 @@ extern char reg_D;
 extern char reg_E;
 extern char reg_H;
 extern char reg_L;
+extern char reg_IR[3];
 extern char reg_SP;
 extern char reg_PC;
 
