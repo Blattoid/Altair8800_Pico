@@ -2,6 +2,7 @@
 #include "altair_cpu.h"
 #include "instructions_impl.h"
 
+/* Opcode implementations */
 int opcode_ACI_d8() {
   printf("'opcode_ACI_d8' not implemented.\n");
 }
@@ -643,35 +644,59 @@ int opcode_MOV_M_L() {
 }
 
 int opcode_MVI_A_d8() {
-  printf("'opcode_MVI_A_d8' not implemented.\n");
+  reg_A = reg_IR[1];
+  #ifdef INSTR_DEBUG
+  printf("reg_A=%i\n", reg_A);
+  #endif
 }
 
 int opcode_MVI_B_d8() {
-  printf("'opcode_MVI_B_d8' not implemented.\n");
+  reg_B = reg_IR[1];
+  #ifdef INSTR_DEBUG
+  printf("reg_B=%i\n", reg_B);
+  #endif
 }
 
 int opcode_MVI_C_d8() {
-  printf("'opcode_MVI_C_d8' not implemented.\n");
+  reg_C = reg_IR[1];
+  #ifdef INSTR_DEBUG
+  printf("reg_C=%i\n", reg_C);
+  #endif
 }
 
 int opcode_MVI_D_d8() {
-  printf("'opcode_MVI_D_d8' not implemented.\n");
+  reg_D = reg_IR[1];
+  #ifdef INSTR_DEBUG
+  printf("reg_D=%i\n", reg_D);
+  #endif
 }
 
 int opcode_MVI_E_d8() {
-  printf("'opcode_MVI_E_d8' not implemented.\n");
+  reg_E = reg_IR[1];
+  #ifdef INSTR_DEBUG
+  printf("reg_E=%i\n", reg_E);
+  #endif
 }
 
 int opcode_MVI_H_d8() {
-  printf("'opcode_MVI_H_d8' not implemented.\n");
+  reg_H = reg_IR[1];
+  #ifdef INSTR_DEBUG
+  printf("reg_H=%i\n", reg_L);
+  #endif
 }
 
 int opcode_MVI_L_d8() {
-  printf("'opcode_MVI_L_d8' not implemented.\n");
+  reg_L= reg_IR[1];
+  #ifdef INSTR_DEBUG
+  printf("reg_L=%i\n", reg_L);
+  #endif
 }
 
 int opcode_MVI_M_d8() {
-  printf("'opcode_MVI_M_d8' not implemented.\n");
+  reg_M = reg_IR[1];
+  #ifdef INSTR_DEBUG
+  printf("reg_M=%i\n", reg_M);
+  #endif
 }
 
 int opcode_NOP() {

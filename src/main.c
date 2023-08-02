@@ -4,6 +4,8 @@
 
 #include "altair_cpu.h"
 
+#define INSTR_DEBUG // Uncomment for verbose logging of each instruction
+
 /*
 // Front Panel button pin mappings
 #define SHIFT_BTN 0
