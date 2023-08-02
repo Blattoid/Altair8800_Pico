@@ -20,7 +20,7 @@ void cpu_step() {
   char instruction = memory[reg_PC];
   // Decode
   Opcode op = instruction_set[instruction];
-  printf("[%d] %s %d %d %#08x\n", instruction, op.name, op.length, op.cycles, op.execute);
+  printf("[%d] %s ", reg_PC, op.name);
   // Execute
   reg_PC += op.length;
   op.execute();
