@@ -67,6 +67,9 @@ int main() {
     memory[i] = value;
   }  
 
+  printf("Sleeping...\n");
+  sleep_ms(2000);
+
   // FDE loop
   while (true) {
     cpu_step();
@@ -79,6 +82,6 @@ int main() {
 
 void irq_clk_rise(uint gpio, uint32_t events) {
   // Read in the data bus and store it into memory at the value set by the address bus
-  // This will let the user "toggle in" a program, one byte at a time :)
+  // This will eventually let the user "toggle in" a program, one byte at a time :)
   printf("IRQ! d=%d\n", gpio_get(DATA_BTN));
 }
