@@ -4,8 +4,6 @@
 
 #include "altair_cpu.h"
 
-#define INSTR_DEBUG // Uncomment for verbose logging of each instruction
-
 /*
 // Front Panel button pin mappings
 #define SHIFT_BTN 0
@@ -57,23 +55,34 @@ int main() {
   gpio_set_irq_enabled_with_callback(
     CLK_BTN, GPIO_IRQ_EDGE_RISE, true, &irq_clk_rise);
 
+
+  printf("Sleeping...\n");
+  sleep_ms(2000);
+
   // Fill the memory with random values, just like on the real hardware
-  for (int i=0; i<MEMORY_SIZE; i++) {
+  /*for (int i=0; i<MEMORY_SIZE; i++) {
     // Read the ring oscillator to set each bit to a random value
     char value = 0;
     for (int b=0; b<8; b++) {
       value |= rosc_hw->randombit << b;
     }
     memory[i] = value;
-  }  
-
-  printf("Sleeping...\n");
-  sleep_ms(2000);
-
+  }*/
+  for (char i=10; i<17; i++){
+    if (i%2==0){
+      memory[i]=0x36; // MVI_M_d8
+    }
+    else {
+      memory[i]=i;
+    }
+  }
+  for (char i=17; i<20; i++){
+    memory[i]=0x76; // HLT
+  }
+  
   // FDE loop
   while (true) {
     cpu_step();
-    printf("PC=%d\n", reg_PC);
   }
   
   // This should never be reached 

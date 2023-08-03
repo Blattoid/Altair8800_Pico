@@ -2,6 +2,8 @@
 #include "altair_cpu.h"
 #include "instructions_impl.h"
 
+#define INSTR_DEBUG // Uncomment for verbose logging of each instruction
+
 /*** Opcode implementations ***/
 int opcode_ACI_d8() {
   printf("'opcode_ACI_d8' not implemented.\n");
