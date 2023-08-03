@@ -683,7 +683,7 @@ int opcode_MVI_E_d8() {
 int opcode_MVI_H_d8() {
   reg_H = reg_IR[1];
   #ifdef INSTR_DEBUG
-  printf("reg_H=%i\n", reg_L);
+  printf("reg_H=%i\n", reg_H);
   #endif
 }
 
