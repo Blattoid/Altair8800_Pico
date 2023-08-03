@@ -13,15 +13,15 @@ char reg_E;
 char reg_H;
 char reg_L;
 char reg_IR[3];
-char reg_SP;
-char reg_PC;
+unsigned short int reg_SP;
+unsigned short int reg_PC;
 
 void cpu_step() {
   // Fetch opcode byte into Instruction Register
   reg_IR[0] = memory[reg_PC];
   // Decode
   Opcode op = instruction_set[reg_IR[0]];
-  printf("[%d] %s ", reg_PC, op.name);
+  printf("[%04X] %s ", reg_PC, op.name);
   // Copy any arguments into Instruction Register
   //char i = 1;
   for (char i=1; i<op.length; i++) { 
