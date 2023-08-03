@@ -273,7 +273,9 @@ int opcode_EI() {
 }
 
 int opcode_HLT() {
-  printf("'opcode_HLT' not implemented.\n");
+  // This should probably set some flag like "is_running" to false, as currently
+  // the CPU is being stepped by the main function, rather than running continuously.
+  for (;;) {} // Halt the entire program
 }
 
 int opcode_INR_A() {
