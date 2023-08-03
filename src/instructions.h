@@ -11,4 +11,3 @@ typedef struct {
 extern Opcode instruction_set[];
 
 #endif // INSTRUCTIONS_H
-

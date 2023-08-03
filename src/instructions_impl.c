@@ -2,7 +2,7 @@
 #include "altair_cpu.h"
 #include "instructions_impl.h"
 
-/* Opcode implementations */
+/*** Opcode implementations ***/
 int opcode_ACI_d8() {
   printf("'opcode_ACI_d8' not implemented.\n");
 }
