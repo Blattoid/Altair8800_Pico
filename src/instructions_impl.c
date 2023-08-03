@@ -4,6 +4,9 @@
 
 #define INSTR_DEBUG // Uncomment for verbose logging of each instruction
 
+// The M register "contains" the indirect lookup of HL
+#define reg_M memory[(reg_H<<8)+reg_L]
+
 /*** Opcode implementations ***/
 int opcode_ACI_d8() {
   printf("'opcode_ACI_d8' not implemented.\n");
