@@ -8,7 +8,7 @@
 
 # Make sure to change the below constants for your system!
 I_HAVE_CONFIRMED_THESE_ARE_CORRECT=no    # Change to 'yes' once you're happy.
-PICO_MNTDIR=/run/media/`whoami`/RPI-RP2 # Where the device is mounted, or where it should be mounted
+PICO_MNTDIR=/run/media/`whoami`/RPI-RP2 # Where the device should be mounted.
 PICO_BLKDEV=/dev/sdb1 # Block device used for automatic mounting, if it isn't already
 SERIAL_PORT=/dev/ttyACM0 # Serial port for the screen command
 
@@ -19,7 +19,7 @@ cleanup() {
   failed=0 # Zero means all ok, 1 means umount failed, 2 means rmdir failed
   if grep -qs "$PICO_BLKDEV " /proc/mounts; then
     # Try three times to unmount the device
-    for try in 1 2 3; do
+    for try in {1..3}; do
       sudo umount "$PICO_BLKDEV" 
       if [ $? -eq 0 ]; then
         # Show how many tries it took, if more than 1 was needed.
@@ -81,16 +81,6 @@ if [ ! -d "$PICO_MNTDIR" ]; then
     exit 1
   fi
 
-  # Make sure we can write to it
-  : <<'END_COMMENT'  # Removing this for now - it may not be necessary?
-  sudo chown -v `whoami`:`whoami` "$PICO_MNTDIR"
-  if [ $? -ne 0 ]; then
-    echo "Unauthorised; Failed to transfer ownership of mountpoint"
-    cleanup
-    exit 1
-  fi
-END_COMMENT
-
   echo -e "Successfully mounted device!\n" # All went well!
 fi
 
@@ -99,7 +89,7 @@ fi
 [ $? -ne 0 ] && exit 1
 
 # Attempt to copy the firmware file
-echo Uploading .uf2...
+echo -n "Uploading uf2... "
 cp build/*.uf2 "$PICO_MNTDIR"
 if [ $? -ne 0 ]; then
   echo Unable to copy firmware!
@@ -111,12 +101,12 @@ cleanup
 # Show a spinner while waiting for the serial port to show up
 echo -n "Wait for chip reboot  "
 i=0
-declare -a anim=("-" "\\" "|" "/")
+declare -a anim=("─" "\\" "|" "/")
 while [ ! -c "$SERIAL_PORT" ]; do
   sleep 0.1
   printf "\b${anim[$i]}"
   ((i=i+1))
-  [ $i -ge 4 ] && i=0
+  [ $i -ge ${#anim[@]} ] && i=0
 done
 echo
 
