@@ -29,6 +29,7 @@ cleanup() {
       sleep 1 # Waiting is sometimes necessary
     done
     failed=1 # None of the tries worked! Oh dear.
+    >&2 echo "Failed to unmount Pico"
   fi
 
   # Then clean up the directory if it exists
@@ -39,18 +40,18 @@ cleanup() {
   
   # Apologetic failure message
   if [ $failed -ne 0 ]; then
-    echo Cleanup failed! Something has gone terribly wrong.
-    echo "There is now a (probably) empty mountpoint at \"$PICO_MNTDIR\""
-    echo You will have to clean this up manually. Very sorry for the inconvenience.
+    >&2 echo Cleanup failed! Something has gone terribly wrong.
+    >&2 echo "There is now a (probably) empty mountpoint at \"$PICO_MNTDIR\""
+    >&2 echo You will have to clean this up manually. Very sorry for the inconvenience.
     exit 1 # Definitely want to make sure we stop at this point
   fi
 }
 
 # Ensure the user isn't just blindly running this
 if [ $I_HAVE_CONFIRMED_THESE_ARE_CORRECT != yes ]; then
-  echo "Hold on just a second! There's some configuration you need to do."
-  echo "Not all systems behave the same, so there are some constant variables at the top of this script you will need to adjust."
-  echo "The option to disable this message is alongside the other constants."
+  >&2 echo "Hold on just a second! There's some configuration you need to do."
+  >&2 echo "Not all systems behave the same, so there are some constant variables at the top of this script you will need to adjust."
+  >&2 echo "The option to disable this message is alongside the other constants."
   exit 1
 fi
 
@@ -59,7 +60,7 @@ if [ ! -d "$PICO_MNTDIR" ]; then
   # If not, that's ok. We can try to mount it ourselves.
   # Well, provided the device is actually connected.
   if [ ! -b "$PICO_BLKDEV" ]; then
-    echo "Can't find the Pico. Did you hold the BOOTSEL button while plugging it in?"
+    >&2 echo "Can't find the Pico. Did you hold the BOOTSEL button while plugging it in?"
     exit 1
   fi
   
@@ -67,7 +68,7 @@ if [ ! -d "$PICO_MNTDIR" ]; then
   sudo mkdir -p "$PICO_MNTDIR" # Create the mountpoint
   if [ ! -d "$PICO_MNTDIR" ]; then
     # User must have failed to authenticate the sudo.
-    echo "Unauthorised; Can't create mountpoint"
+    >&2 echo "Unauthorised; Can't create mountpoint"
     exit 1
   fi
   
@@ -76,7 +77,7 @@ if [ ! -d "$PICO_MNTDIR" ]; then
   gid=$(id -g `whoami`)
   sudo mount -o uid=$uid,gid=$gid "$PICO_BLKDEV" "$PICO_MNTDIR"
   if [ $? -ne 0 ]; then # If we quit at this moment then we'd be leaving behind an empty mountpoint
-    echo Failed to mount device!
+    >&2 echo Failed to mount device!
     cleanup
     exit 1
   fi
@@ -92,7 +93,7 @@ fi
 echo -n "Uploading uf2... "
 cp build/*.uf2 "$PICO_MNTDIR"
 if [ $? -ne 0 ]; then
-  echo Unable to copy firmware!
+  >&2 echo -e \nUnable to copy firmware!
   exit 1
 fi
 echo Done.
